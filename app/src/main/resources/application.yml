@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: iwannaeat-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/iwannaeat}
+    username: ${DB_USERNAME:iwannaeat}
+    password: ${DB_PASSWORD:iwannaeat}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  jackson:
+    default-property-inclusion: non_null
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+app:
+  security:
+    jwt:
+      issuer: ${JWT_ISSUER:iwannaeat-backend}
+      secret: ${JWT_SECRET:please-change-me-to-a-long-secret-key-for-dev-only}
+      access-token-expiration-minutes: ${JWT_ACCESS_MINUTES:30}
+      refresh-token-expiration-days: ${JWT_REFRESH_DAYS:14}

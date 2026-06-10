@@ -18,6 +18,23 @@ IWannaEat - мобильное Android-приложение рецептов с 
 - **Database**: PostgreSQL.
 - **Integrations**: LLM provider (через backend), Firebase Cloud Messaging.
 
+## Запуск локально (Phase 0-1)
+
+1. Поднять PostgreSQL:
+   - `POSTGRES_PORT=5433 docker compose up -d postgres`
+2. Запустить backend:
+   - `cd app`
+   - `DB_URL=jdbc:postgresql://localhost:5433/iwannaeat DB_USERNAME=iwannaeat DB_PASSWORD=iwannaeat ./gradlew bootRun --args='--server.port=18080'`
+3. Запустить Flutter клиент:
+   - `cd i_wanna_eat`
+   - `flutter pub get`
+   - `flutter run --dart-define=API_BASE_URL=http://10.0.2.2:18080`
+
+### Проверка backend
+
+- Swagger UI: `http://localhost:18080/swagger-ui/index.html`
+- Healthcheck: `http://localhost:18080/actuator/health`
+
 ## Документация проекта
 
 - [Development Guidelines](./DEVELOPMENT_GUIDELINES.md)
